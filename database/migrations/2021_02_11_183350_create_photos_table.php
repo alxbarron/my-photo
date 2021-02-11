@@ -22,10 +22,10 @@ class CreatePhotosTable extends Migration
             $table->string('url');
             $table->unsignedInteger('favorite')->default(0);
             $table->unsignedInteger('unfavorite')->default(0);
-            $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
