@@ -20,8 +20,7 @@ class CreatePhotosTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('url');
-            $table->unsignedInteger('favorite')->default(0);
-            $table->unsignedInteger('unfavorite')->default(0);
+            $table->boolean('favorite')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

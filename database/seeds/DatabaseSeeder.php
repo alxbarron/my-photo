@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         factory(App\User::class, 5)->create()->each(function ($user) {
             $user->photos()
                 ->saveMany(
-                    factory(App\Photo::class, rand(3, 6))->make()
+                    factory(App\Photo::class, rand(3, 7))->make()
                 );
         });
     }
