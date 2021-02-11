@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -78,14 +80,10 @@ class PhotoController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Photo $photo)
+
+    public function isTodayWeekend()
     {
-        //
+        $currentDate = new DateTime("now", new DateTimeZone("Europe/Amsterdam"));
+        return $currentDate->format('N') >= 6;
     }
 }
