@@ -10,19 +10,20 @@ class UserController extends Controller
 {
     /**
      * Display list of users that have favorited the 
-     * most in that week.
+     * most in current week - Show only on weekdays
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $currentWeekNumber = date('W');
-        // $photo = Photo::where('favorite', '=', 1)->first();
-        // $updatedDate = $photo->updated_at->format("W");
-        // dd($updatedDate);
-        $users = User::whereHas('photos', function ($query) use ($currentWeekNumber) {
-            $query->where('favorite', '=', 1);
-            // $query->whereWeek('update_at', '=', $currentWeekNumber);
+        $day = date('w');
+        $weekStart = date("Y-m-d h:i:s", strtotime('-' . $day . ' days'));
+
+        $users = User::whereHas('photos', function ($query) use ($weekStart) {
+            $query->where([
+                ['favorite', '=', 1],
+                ['updated_at', '>=', $weekStart]
+            ]);
         })
             ->paginate(5);
         dd($users);

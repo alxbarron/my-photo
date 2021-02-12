@@ -3,17 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Latest favorite Photos</div>
 
                 <div class="card-body">
                     @foreach ($photos as $photo)
-                        <div class="media">
+                        <div class="media mb-3">
                             <div class="media-body">
                                 <h3 class="mt-0">{{ $photo->title }}</h3>
-                                <a href="{{ $photo->url }}">{{ $photo->url }}</a>
-                                <h4>Favorite: {{ $photo->favorite }}</h4>
+                                <img class="mx-auto d-block" src="{{ $photo->url }}" alt="{{ $photo->slug}}">                                
                             </div>
                         </div>
                     @endforeach

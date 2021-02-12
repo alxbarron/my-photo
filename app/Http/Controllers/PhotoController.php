@@ -20,7 +20,7 @@ class PhotoController extends Controller
     {
         $photos = Photo::where('favorite', '=', 1)
             ->latest()
-            ->paginate(5);
+            ->paginate(1);
 
         return view('photos.index', compact('photos'));
     }
