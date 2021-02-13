@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -44,18 +45,14 @@ class User extends Authenticatable
 
     public function getWithMostFavoritedWeek()
     {
-        // $day = date('w');
-        // $weekStart = date("Y-m-d h:i:s", strtotime('-' . $day . ' days'));
+        $dt = Carbon::now()->locale('de');
+        $weekStart = $dt->subWeek()->format('Y-m-d H:i:s');
 
-        // return $this->whereHas('photos', function ($query) use ($weekStart) {
-        //     $query->where([
-        //         ['favorite', '=', 1],
-        //         ['updated_at', '>=', $weekStart]
-        //     ]);
-        // })
-        //     ->paginate(5);
-        return $this->whereHas('photos', function ($query) {
-            $query->where('favorite', 1);
+        return $this->whereHas('photos', function ($query) use ($weekStart) {
+            $query->where([
+                ['favorite', 1],
+                ['created_at', '>=', $weekStart]
+            ]);
         })->get();
     }
 }
