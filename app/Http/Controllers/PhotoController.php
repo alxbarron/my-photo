@@ -18,10 +18,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        $photos = Photo::where('favorite', '=', 1)
-            ->latest()
-            ->paginate(1);
-
+        $modelPhoto = new Photo;
+        $photos = $modelPhoto->getLatestFavorites();
         return view('photos.index', compact('photos'));
     }
 

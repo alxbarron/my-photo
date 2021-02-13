@@ -24,3 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/usersFavorited', 'UserController@index')->name('usersFavorited');
 
 Route::resource('photos', 'PhotoController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
