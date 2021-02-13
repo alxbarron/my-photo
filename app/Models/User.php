@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function photos()
     {
-        return $this->hasMany(Photo::class);
+        return $this->belongsToMany(Photo::class);
     }
 
     public function getWithMostFavoritedWeek()

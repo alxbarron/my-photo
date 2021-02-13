@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['album_id', 'placeholder_id', 'title', 'url', 'thumbnail', 'favorite'];
+    protected $fillable = ['id', 'title', 'url', 'thumbnail', 'favorite'];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function setTitleAttribute($value)

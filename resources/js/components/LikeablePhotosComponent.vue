@@ -10,7 +10,7 @@
               <img v-bind:src="photo.url" class="card-img-top" v-bind:alt="photo.title">
               <div class="card-body">
                 <h5 class="card-title">{{ photo.title}}</h5>
-                <a href="#" class="btn btn-primary">Favorite</a>
+                <a href="#" class="btn btn-primary" v-on:click="favorPhoto(photo)">Favorite</a>
               </div>
             </div>
           </div>        
@@ -67,6 +67,21 @@ export default {
       .catch((error) => {
         console.error(error);
       })
+    },
+
+    favorPhoto(photo){
+      console.error(photo);
+      axios.post('/photos', {
+        id: photo.id,
+        title: photo.title,
+        url: photo.url
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     }
 
   },

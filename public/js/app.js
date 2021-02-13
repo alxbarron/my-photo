@@ -2019,6 +2019,18 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    favorPhoto: function favorPhoto(photo) {
+      console.error(photo);
+      axios.post('/photos', {
+        id: photo.id,
+        title: photo.title,
+        url: photo.url
+      }).then(function (resp) {
+        console.log(resp);
+      })["catch"](function (err) {
+        console.error(err);
+      });
     }
   },
   created: function created() {
@@ -37680,7 +37692,12 @@ var render = function() {
                           "a",
                           {
                             staticClass: "btn btn-primary",
-                            attrs: { href: "#" }
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                return _vm.favorPhoto(photo)
+                              }
+                            }
                           },
                           [_vm._v("Favorite")]
                         )
@@ -50109,8 +50126,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/hugo/Sites/Projects/my-photo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/hugo/Sites/Projects/my-photo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/huessy/projects/my-photo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/huessy/projects/my-photo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

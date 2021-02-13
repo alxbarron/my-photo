@@ -6,6 +6,7 @@ use App\Models\Photo;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
 {
@@ -41,7 +42,33 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        if (!$user) {
+            return;
+        }
+
+        $rules = [
+            'id' => 'required',
+            'title' => 'required',
+            'url' => 'required'
+        ];
+
+        $request->validate($rules);
+
+        $photo = Photo::find($request->id);
+        if (!$photo) {
+            $photo = Photo::create([
+                'id' => $request->id,
+                'title' => $request->title,
+                'url' => $request->url,
+            ]);
+        }
+
+
+
+        $user->photos()->save($photo);
+
+        return ["status" => "Photo saved to user $user->id"];
     }
 
     /**

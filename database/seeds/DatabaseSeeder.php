@@ -12,10 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(App\Models\User::class, 6)->create()->each(function ($user) {
-            $user->photos()
-                ->saveMany(
-                    factory(App\Models\Photo::class, rand(3, 8))->make()
-                );
         });
+
+        $this->call([
+            PhotoSeeder::class,
+            UserPhotoSeeder::class
+        ]);
     }
 }
