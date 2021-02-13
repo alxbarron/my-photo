@@ -12,7 +12,7 @@
                         <div class="media mb-3">
                             <div class="media-body">
                                 <h3 class="mt-0">{{ $photo->title }}</h3>
-                                <img class="mx-auto d-block" src="{{ $photo->url }}" alt="{{ $photo->slug}}">                                
+                                <img class="mx-auto d-block" src="{{ $photo->url }}">                                
                             </div>
                         </div>
                     @endforeach

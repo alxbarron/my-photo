@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['title', 'albumId', 'placeholderId', 'url'];
 
     public function user()
     {
@@ -16,6 +15,5 @@ class Photo extends Model
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = str_slug($value);
     }
 }
