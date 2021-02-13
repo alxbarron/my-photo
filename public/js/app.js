@@ -1993,54 +1993,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       photos: [],
-      maxPhotos: 5000,
+      photosMaximumLength: 5000,
       page: 1,
       perPage: 1,
-      pages: []
+      totalPages: 0
     };
   },
   methods: {
-    setPages: function setPages() {
-      var numberOfPages = Math.ceil(this.maxPhotos / this.perPage);
-
-      for (var index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
+    initializePages: function initializePages() {
+      this.totalPages = this.photosMaximumLength / this.perPage;
+      console.error(this.totalPages);
     },
     getPhotos: function getPhotos(offset, limit) {
       var _this = this;
 
-      axios.get("http://jsonplaceholder.typicode.com/photos?_start=".concat(offset, "&_limit=").concat(limit)).then(function (response) {
-        _this.photos = response.data;
+      axios.get("http://jsonplaceholder.typicode.com/photos?_start=".concat(offset, "&_limit=").concat(limit)).then(function (resp) {
+        _this.photos = resp.data;
       })["catch"](function (error) {
-        console.log(error);
+        console.error(error);
       });
-    },
-    paginate: function paginate(photos) {
-      var page = this.page;
-      var perPage = this.perPage;
-      var from = page * perPage - perPage;
-      var to = page * perPage;
-      this.getPhotos(from, to);
     }
   },
-  computed: {
-    displayedPhotos: function displayedPhotos() {
-      return this.paginate(this.photos);
-    }
-  },
-  watch: {
-    photos: function photos() {
-      this.setPages();
-    }
+  created: function created() {
+    this.getPhotos(0, this.perPage);
   },
   mounted: function mounted() {
-    this.getPhotos(this.currentPage * this.perPage, this.perPage);
-    this.setPages();
+    this.initializePages();
+  },
+  watch: {
+    page: function page() {
+      this.getPhotos((this.page - 1) * this.perPage, this.perPage);
+    }
   }
 });
 
@@ -37661,7 +37651,7 @@ var render = function() {
               _vm._v("Placeholder Photos")
             ]),
             _vm._v(" "),
-            _vm._l(_vm.displayedPhotos, function(photo) {
+            _vm._l(_vm.photos, function(photo) {
               return _c(
                 "div",
                 {
@@ -37673,7 +37663,7 @@ var render = function() {
                     "div",
                     {
                       staticClass: "card text-center",
-                      staticStyle: { width: "30rem" }
+                      staticStyle: { width: "32rem" }
                     },
                     [
                       _c("img", {
@@ -37692,7 +37682,7 @@ var render = function() {
                             staticClass: "btn btn-primary",
                             attrs: { href: "#" }
                           },
-                          [_vm._v("Go somewhere")]
+                          [_vm._v("Favorite")]
                         )
                       ])
                     ]
@@ -37701,69 +37691,78 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _c("nav", { attrs: { "aria-label": "Photos navigation" } }, [
-              _c("ul", { staticClass: "pagination" }, [
-                _c("li", { staticClass: "page-item" }, [
-                  _vm.page != 1
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "page-link",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.page--
-                            }
-                          }
-                        },
-                        [_vm._v(" Previous ")]
-                      )
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "page-item" },
-                  _vm._l(_vm.pages.slice(_vm.page - 1, _vm.page + 5), function(
-                    pageNumber
-                  ) {
-                    return _c(
-                      "button",
+            _c(
+              "div",
+              { staticClass: "col d-flex justify-content-center my-3" },
+              [
+                _vm.page > 1
+                  ? _c(
+                      "a",
                       {
-                        key: pageNumber,
-                        staticClass: "page-link",
-                        attrs: { type: "button" },
+                        staticClass: "btn btn-primary mx-1",
                         on: {
                           click: function($event) {
-                            _vm.page = pageNumber
+                            _vm.page--
                           }
                         }
                       },
-                      [_vm._v(" " + _vm._s(pageNumber) + " ")]
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.page - 1) +
+                            "\n          "
+                        )
+                      ]
                     )
-                  }),
-                  0
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("li", { staticClass: "page-item" }, [
-                  _vm.page < _vm.pages.length
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "page-link",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.page++
-                            }
+                _c("a", { staticClass: "btn btn-primary active mx-1" }, [
+                  _vm._v("\n            " + _vm._s(_vm.page) + "\n          ")
+                ]),
+                _vm._v(" "),
+                _vm.page < _vm.totalPages
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary mx-1",
+                        on: {
+                          click: function($event) {
+                            _vm.page++
                           }
-                        },
-                        [_vm._v(" Next ")]
-                      )
-                    : _vm._e()
-                ])
-              ])
-            ])
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.page + 1) +
+                            "\n          "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.page == 1
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary mx-1",
+                        on: {
+                          click: function($event) {
+                            _vm.page = _vm.page + 2
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.page + 2) +
+                            "\n          "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            )
           ],
           2
         )
