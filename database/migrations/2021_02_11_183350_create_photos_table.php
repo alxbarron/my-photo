@@ -15,15 +15,16 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('albumId');
-            $table->unsignedBigInteger('placeholderId');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('url');
+            $table->unsignedInteger('album_id');
+            $table->unsignedInteger('placeholder_id');
+            $table->string('title', 100);
+            $table->text('url');
+            $table->text('thumbnail');
             $table->boolean('favorite')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
+            $table->index(['album_id', 'placeholder_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

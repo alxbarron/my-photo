@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Photo;
+use App\Models\User;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
