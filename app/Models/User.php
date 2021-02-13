@@ -41,4 +41,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function getWithMostFavoritedWeek()
+    {
+        // $day = date('w');
+        // $weekStart = date("Y-m-d h:i:s", strtotime('-' . $day . ' days'));
+
+        // return $this->whereHas('photos', function ($query) use ($weekStart) {
+        //     $query->where([
+        //         ['favorite', '=', 1],
+        //         ['updated_at', '>=', $weekStart]
+        //     ]);
+        // })
+        //     ->paginate(5);
+        return $this->whereHas('photos', function ($query) {
+            $query->where('favorite', 1);
+        })->get();
+    }
 }
