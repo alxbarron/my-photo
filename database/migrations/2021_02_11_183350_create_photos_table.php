@@ -17,7 +17,6 @@ class CreatePhotosTable extends Migration
             $table->unsignedInteger('id');
             $table->string('title', 100);
             $table->text('url');
-            $table->text('thumbnail');
             $table->timestamps();
 
             $table->primary('id');

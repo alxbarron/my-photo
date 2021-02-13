@@ -54,8 +54,7 @@ export default {
    methods:{
 
     initializePages(){
-      this.totalPages = this.photosMaximumLength / this.perPage;
-      console.error(this.totalPages);
+      this.totalPages = this.photosMaximumLength / this.perPage;      
     },
 
     getPhotos(offset, limit){      
@@ -69,8 +68,7 @@ export default {
       })
     },
 
-    favorPhoto(photo){
-      console.error(photo);
+    favorPhoto(photo){      
       axios.post('/photos', {
         id: photo.id,
         title: photo.title,
@@ -82,6 +80,7 @@ export default {
       .catch((err) => {
         console.error(err);
       });
+      this.page = ++this.page;
     }
 
   },

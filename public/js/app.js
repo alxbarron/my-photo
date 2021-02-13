@@ -2009,7 +2009,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initializePages: function initializePages() {
       this.totalPages = this.photosMaximumLength / this.perPage;
-      console.error(this.totalPages);
     },
     getPhotos: function getPhotos(offset, limit) {
       var _this = this;
@@ -2021,7 +2020,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     favorPhoto: function favorPhoto(photo) {
-      console.error(photo);
       axios.post('/photos', {
         id: photo.id,
         title: photo.title,
@@ -2031,6 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.error(err);
       });
+      this.page = ++this.page;
     }
   },
   created: function created() {
@@ -50126,8 +50125,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/huessy/projects/my-photo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/huessy/projects/my-photo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/hugo/Sites/Projects/my-photo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hugo/Sites/Projects/my-photo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

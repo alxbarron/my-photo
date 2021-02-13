@@ -6,16 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['id', 'title', 'url', 'thumbnail', 'favorite'];
+    protected $fillable = ['id', 'title', 'url',];
 
     public function user()
     {
         return $this->belongsToMany(User::class);
-    }
-
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = $value;
     }
 
     public function getLatestFavorites()
